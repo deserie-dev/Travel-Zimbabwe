@@ -28,6 +28,7 @@ app.use(handlers.notFound)
 //custom 500 page
 app.use(handlers.serverError)
 
+//Enable app to be required as a module
 if(require.main === module) {
     app.listen(port, () => {
       console.log( `Express started on http://localhost:${port}` +
