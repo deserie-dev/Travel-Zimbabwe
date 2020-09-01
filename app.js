@@ -1,5 +1,6 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
+const bodyParser = require('body-parser')
 
 const handlers = require('./lib/handlers')
 
@@ -12,13 +13,25 @@ app.engine('handlebars', expressHandlebars({
 
 app.set('view engine', 'handlebars')
 
-app.use(express.static(__dirname + '/public'))
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 const port = process.env.PORT || 3000
+
+app.use(express.static(__dirname + '/public'))
 
 app.use(express.static(__dirname + 'public'))
 
 app.get('/', handlers.home)
+
+// handlers for browser-based form submission
+app.get('/newsletter-signup', handlers.newsletterSignup)
+app.post('/newsletter-signup/process', handlers.newsletterSignupProcess)
+app.get('/newsletter-signup/thank-you', handlers.newsletterSignupThankYou)
+
+// handlers for fetch/JSON form submission
+app.get('/newsletter', handlers.newsletter)
+app.post('/api/newsletter-signup', handlers.api.newsletterSignup)
 
 app.get('about', handlers.home)
 
