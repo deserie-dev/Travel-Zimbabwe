@@ -1,4 +1,4 @@
 module.exports = {
-    cookieSecret: 'coming strength nothing half',
+    cookieSecret: 'zimbabwean lives matter',
   }
   
